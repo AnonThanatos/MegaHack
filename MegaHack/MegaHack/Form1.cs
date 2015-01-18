@@ -28,8 +28,9 @@ namespace MegaHack
         Int32 size;
         IntPtr Offset;
         string[] line;
+        List<string[]> ManualHackList = new List<string[]>();
         List<string[]> AutoHackList = new List<string[]>();
-        List<string> AuthorList = new List<string>();
+
         string[] Hack_List_Stuff;
         public MainForm()
         {
@@ -96,9 +97,20 @@ private void checklogin()
 
         public void Scan(string startscan)
         {
-            if (filename != null)
+            if (startscan == "Manual")
+            {
+                //Store file opened by user
+                OpenFileDialog Select_File = new OpenFileDialog();
+                Select_File.Filter = "MegaHack files (*.mh)|*.mh";
+                Select_File.FilterIndex = 1;
+                if (Select_File.ShowDialog() == DialogResult.OK)
+                {
+                    filename = Select_File.FileName;
+                }
+            }
+            if (filename != null && startscan == "Manual")
             {                
-                FetchHex();  
+                scanfile();  
             }
 
         }
@@ -137,9 +149,8 @@ private void checklogin()
                 readline = file.ReadLine();
                 if (readline != null)
                 {
-                    AuthorList.Add(readline);
-                    line = readline.Replace(" ", "").Split('*');
-                    listBox_AutoHack.Items.Add(line[0].Replace("+", " "));
+                    ManualHackList.Add(readline.Replace(" ", "").Replace("+", " ").Split('*'));
+                    //     listBox_AutoHack.Items.Add();
                     counter++;
                 }
 
@@ -291,11 +302,11 @@ private void checklogin()
         {
             if (manual_selected == "HEX" && manual_replaced == "HEX" && Manual_Search_TextBox.Text != "" && Manual_SearchMask_TextBox.Text != "" && Replace_String_Textbox.Text != "" && Move_Bytes_Textbox.Text != "")
             {
-                AuthorList.Add("0" + "*" + "0" + "*" + "0" + "*" + Manual_Search_TextBox.Text + "*" + Manual_SearchMask_TextBox.Text + "*" + Replace_String_Textbox.Text + "*" + Move_Bytes_Textbox.Text);
+//                AuthorList.Add("0" + "*" + "0" + "*" + "0" + "*" + Manual_Search_TextBox.Text + "*" + Manual_SearchMask_TextBox.Text + "*" + Replace_String_Textbox.Text + "*" + Move_Bytes_Textbox.Text);
             }
             if (manual_selected == "TEXT" && manual_replaced == "TEXT" && Manual_Search_TextBox.Text != "" && Manual_SearchMask_TextBox.Text != "" && Replace_String_Textbox.Text != "" && Move_Bytes_Textbox.Text != "")
             {
-                AuthorList.Add("0" + "*" + "0" + "*" + "0" + "*" + ConvertToHex(Encoding.ASCII.GetBytes(Manual_Search_TextBox.Text)) + "*" + Manual_SearchMask_TextBox.Text + "*" + ConvertToHex(Encoding.ASCII.GetBytes(Replace_String_Textbox.Text)) + "*" + Move_Bytes_Textbox.Text);
+ //               AuthorList.Add("0" + "*" + "0" + "*" + "0" + "*" + ConvertToHex(Encoding.ASCII.GetBytes(Manual_Search_TextBox.Text)) + "*" + Manual_SearchMask_TextBox.Text + "*" + ConvertToHex(Encoding.ASCII.GetBytes(Replace_String_Textbox.Text)) + "*" + Move_Bytes_Textbox.Text);
             }
 
         }
@@ -336,7 +347,7 @@ private void checklogin()
 
         private void Load_Custom_Button_Click(object sender, EventArgs e)
         {
-            scanfile();
+            Scan("Manual");
         }
 
         private void Load_Hacklist_Button_Click(object sender, EventArgs e)

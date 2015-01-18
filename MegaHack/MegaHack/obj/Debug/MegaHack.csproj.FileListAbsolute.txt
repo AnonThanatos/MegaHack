@@ -20,3 +20,10 @@ C:\Repository\MegaHack\WindowsFormsApplication2\MegaHack\obj\Debug\MegaHack.cspr
 C:\Repository\MegaHack\MegaHack\bin\Debug\MegaHack.exe.config
 C:\Repository\MegaHack\MegaHack\obj\Debug\MegaHack.exe
 C:\Repository\MegaHack\MegaHack\obj\Debug\MegaHack.pdb
+C:\Repository\MegaHack\MegaHack\bin\Debug\MegaHack.exe
+C:\Repository\MegaHack\MegaHack\bin\Debug\MegaHack.pdb
+C:\Repository\MegaHack\MegaHack\bin\Debug\MegaHackTextBox.dll
+C:\Repository\MegaHack\MegaHack\obj\Debug\MegaHack.csprojResolveAssemblyReference.cache
+C:\Repository\MegaHack\MegaHack\obj\Debug\MegaHack.MainForm.resources
+C:\Repository\MegaHack\MegaHack\obj\Debug\MegaHack.Properties.Resources.resources
+C:\Repository\MegaHack\MegaHack\obj\Debug\MegaHack.csproj.GenerateResource.Cache
