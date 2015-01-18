@@ -73,6 +73,16 @@ namespace MegaHack.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap button {
+            get {
+                object obj = ResourceManager.GetObject("button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap button2 {
             get {
                 object obj = ResourceManager.GetObject("button2", resourceCulture);
@@ -86,16 +96,6 @@ namespace MegaHack.Properties {
         internal static System.Drawing.Bitmap button3 {
             get {
                 object obj = ResourceManager.GetObject("button3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap megahack {
-            get {
-                object obj = ResourceManager.GetObject("megahack", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

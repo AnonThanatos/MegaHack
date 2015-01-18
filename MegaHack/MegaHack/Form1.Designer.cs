@@ -28,8 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.Load_Custom_Button = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.Load_Hacklist_Button = new System.Windows.Forms.Button();
+            this.AutoHack_Button = new System.Windows.Forms.Button();
+            this.Hack_Type_Label = new System.Windows.Forms.Label();
+            this.label_hacktype = new System.Windows.Forms.Label();
+            this.Author_Label = new System.Windows.Forms.Label();
+            this.label_Author_text = new System.Windows.Forms.Label();
+            this.label_Select_Game = new System.Windows.Forms.Label();
+            this.listBox_AutoHack = new System.Windows.Forms.ListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.Password_Login = new ZBobb.MegaHackTextBox();
             this.Name_Login = new ZBobb.MegaHackTextBox();
@@ -58,23 +68,12 @@
             this.Manual_Hack_button = new System.Windows.Forms.Button();
             this.SearchMask_Label = new System.Windows.Forms.Label();
             this.HexString_Label = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.Load_Custom_Button = new System.Windows.Forms.Button();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.Load_Hacklist_Button = new System.Windows.Forms.Button();
             this.Select_APK_OBB = new System.Windows.Forms.Button();
-            this.AutoHack_Button = new System.Windows.Forms.Button();
-            this.Hack_Type_Label = new System.Windows.Forms.Label();
-            this.label_hacktype = new System.Windows.Forms.Label();
-            this.Author_Label = new System.Windows.Forms.Label();
-            this.label_Author_text = new System.Windows.Forms.Label();
-            this.label_Select_Game = new System.Windows.Forms.Label();
-            this.listBox_AutoHack = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -89,9 +88,134 @@
             this.tabControl1.Size = new System.Drawing.Size(964, 673);
             this.tabControl1.TabIndex = 10;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.Black;
+            this.tabPage3.BackgroundImage = global::MegaHack.Properties.Resources.background;
+            this.tabPage3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage3.Controls.Add(this.Load_Custom_Button);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(956, 644);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Custom Hack";
+            // 
+            // Load_Custom_Button
+            // 
+            this.Load_Custom_Button.Location = new System.Drawing.Point(7, 615);
+            this.Load_Custom_Button.Name = "Load_Custom_Button";
+            this.Load_Custom_Button.Size = new System.Drawing.Size(171, 23);
+            this.Load_Custom_Button.TabIndex = 0;
+            this.Load_Custom_Button.Text = "Load Custom Hacktable";
+            this.Load_Custom_Button.UseVisualStyleBackColor = true;
+            this.Load_Custom_Button.Click += new System.EventHandler(this.Load_Custom_Button_Click);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.Color.Black;
+            this.tabPage4.BackgroundImage = global::MegaHack.Properties.Resources.background;
+            this.tabPage4.Controls.Add(this.Load_Hacklist_Button);
+            this.tabPage4.Controls.Add(this.Select_APK_OBB);
+            this.tabPage4.Controls.Add(this.AutoHack_Button);
+            this.tabPage4.Controls.Add(this.Hack_Type_Label);
+            this.tabPage4.Controls.Add(this.label_hacktype);
+            this.tabPage4.Controls.Add(this.Author_Label);
+            this.tabPage4.Controls.Add(this.label_Author_text);
+            this.tabPage4.Controls.Add(this.label_Select_Game);
+            this.tabPage4.Controls.Add(this.listBox_AutoHack);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(956, 644);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Auto Hack";
+            // 
+            // Load_Hacklist_Button
+            // 
+            this.Load_Hacklist_Button.Location = new System.Drawing.Point(252, 7);
+            this.Load_Hacklist_Button.Name = "Load_Hacklist_Button";
+            this.Load_Hacklist_Button.Size = new System.Drawing.Size(122, 23);
+            this.Load_Hacklist_Button.TabIndex = 12;
+            this.Load_Hacklist_Button.Text = "Load Hacklist";
+            this.Load_Hacklist_Button.UseVisualStyleBackColor = true;
+            this.Load_Hacklist_Button.Click += new System.EventHandler(this.Load_Hacklist_Button_Click);
+            // 
+            // AutoHack_Button
+            // 
+            this.AutoHack_Button.BackgroundImage = global::MegaHack.Properties.Resources.button3;
+            this.AutoHack_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AutoHack_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AutoHack_Button.Location = new System.Drawing.Point(737, 607);
+            this.AutoHack_Button.Name = "AutoHack_Button";
+            this.AutoHack_Button.Size = new System.Drawing.Size(108, 21);
+            this.AutoHack_Button.TabIndex = 6;
+            this.AutoHack_Button.UseVisualStyleBackColor = true;
+            this.AutoHack_Button.Click += new System.EventHandler(this.AutoHack_Button_Click);
+            // 
+            // Hack_Type_Label
+            // 
+            this.Hack_Type_Label.AutoSize = true;
+            this.Hack_Type_Label.ForeColor = System.Drawing.Color.Yellow;
+            this.Hack_Type_Label.Location = new System.Drawing.Point(514, 34);
+            this.Hack_Type_Label.Name = "Hack_Type_Label";
+            this.Hack_Type_Label.Size = new System.Drawing.Size(0, 17);
+            this.Hack_Type_Label.TabIndex = 5;
+            // 
+            // label_hacktype
+            // 
+            this.label_hacktype.AutoSize = true;
+            this.label_hacktype.ForeColor = System.Drawing.Color.Yellow;
+            this.label_hacktype.Location = new System.Drawing.Point(418, 34);
+            this.label_hacktype.Name = "label_hacktype";
+            this.label_hacktype.Size = new System.Drawing.Size(90, 17);
+            this.label_hacktype.TabIndex = 4;
+            this.label_hacktype.Text = "Type of hack";
+            // 
+            // Author_Label
+            // 
+            this.Author_Label.AutoSize = true;
+            this.Author_Label.ForeColor = System.Drawing.Color.Yellow;
+            this.Author_Label.Location = new System.Drawing.Point(514, 10);
+            this.Author_Label.Name = "Author_Label";
+            this.Author_Label.Size = new System.Drawing.Size(0, 17);
+            this.Author_Label.TabIndex = 3;
+            // 
+            // label_Author_text
+            // 
+            this.label_Author_text.AutoSize = true;
+            this.label_Author_text.ForeColor = System.Drawing.Color.Yellow;
+            this.label_Author_text.Location = new System.Drawing.Point(418, 10);
+            this.label_Author_text.Name = "label_Author_text";
+            this.label_Author_text.Size = new System.Drawing.Size(50, 17);
+            this.label_Author_text.TabIndex = 2;
+            this.label_Author_text.Text = "Author";
+            // 
+            // label_Select_Game
+            // 
+            this.label_Select_Game.AutoSize = true;
+            this.label_Select_Game.ForeColor = System.Drawing.Color.Yellow;
+            this.label_Select_Game.Location = new System.Drawing.Point(7, 10);
+            this.label_Select_Game.Name = "label_Select_Game";
+            this.label_Select_Game.Size = new System.Drawing.Size(89, 17);
+            this.label_Select_Game.TabIndex = 1;
+            this.label_Select_Game.Text = "Select Game";
+            // 
+            // listBox_AutoHack
+            // 
+            this.listBox_AutoHack.BackColor = System.Drawing.Color.Black;
+            this.listBox_AutoHack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listBox_AutoHack.ForeColor = System.Drawing.Color.Yellow;
+            this.listBox_AutoHack.FormattingEnabled = true;
+            this.listBox_AutoHack.ItemHeight = 16;
+            this.listBox_AutoHack.Location = new System.Drawing.Point(3, 34);
+            this.listBox_AutoHack.Name = "listBox_AutoHack";
+            this.listBox_AutoHack.Size = new System.Drawing.Size(371, 594);
+            this.listBox_AutoHack.TabIndex = 0;
+            this.listBox_AutoHack.SelectedIndexChanged += new System.EventHandler(this.listBox_AutoHack_SelectedIndexChanged);
+            // 
             // tabPage1
             // 
-            this.tabPage1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage1.BackgroundImage")));
+            this.tabPage1.BackColor = System.Drawing.Color.Black;
+            this.tabPage1.BackgroundImage = global::MegaHack.Properties.Resources.background;
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tabPage1.Controls.Add(this.Password_Login);
             this.tabPage1.Controls.Add(this.Name_Login);
@@ -104,7 +228,6 @@
             this.tabPage1.Size = new System.Drawing.Size(956, 644);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Start";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // Password_Login
             // 
@@ -130,7 +253,7 @@
             // 
             // Login_Button
             // 
-            this.Login_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Login_Button.BackgroundImage")));
+            this.Login_Button.BackgroundImage = global::MegaHack.Properties.Resources.button;
             this.Login_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Login_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Login_Button.Location = new System.Drawing.Point(822, 616);
@@ -162,7 +285,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage2.BackColor = System.Drawing.Color.Black;
             this.tabPage2.BackgroundImage = global::MegaHack.Properties.Resources.background;
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tabPage2.Controls.Add(this.Manual_SearchMask_TextBox);
@@ -221,11 +344,13 @@
             // 
             // Manual_Select_APK
             // 
+            this.Manual_Select_APK.BackgroundImage = global::MegaHack.Properties.Resources.button2;
+            this.Manual_Select_APK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Manual_Select_APK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Manual_Select_APK.Location = new System.Drawing.Point(11, 245);
             this.Manual_Select_APK.Name = "Manual_Select_APK";
-            this.Manual_Select_APK.Size = new System.Drawing.Size(119, 23);
+            this.Manual_Select_APK.Size = new System.Drawing.Size(108, 21);
             this.Manual_Select_APK.TabIndex = 35;
-            this.Manual_Select_APK.Text = "Select APK/OBB";
             this.Manual_Select_APK.UseVisualStyleBackColor = true;
             this.Manual_Select_APK.Click += new System.EventHandler(this.Select_APK_OBB_Click);
             // 
@@ -411,11 +536,13 @@
             // 
             // Manual_Hack_button
             // 
-            this.Manual_Hack_button.Location = new System.Drawing.Point(163, 245);
+            this.Manual_Hack_button.BackgroundImage = global::MegaHack.Properties.Resources.button3;
+            this.Manual_Hack_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Manual_Hack_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Manual_Hack_button.Location = new System.Drawing.Point(142, 245);
             this.Manual_Hack_button.Name = "Manual_Hack_button";
-            this.Manual_Hack_button.Size = new System.Drawing.Size(75, 23);
+            this.Manual_Hack_button.Size = new System.Drawing.Size(108, 21);
             this.Manual_Hack_button.TabIndex = 17;
-            this.Manual_Hack_button.Text = "HACK IT!";
             this.Manual_Hack_button.UseVisualStyleBackColor = true;
             this.Manual_Hack_button.Click += new System.EventHandler(this.Manual_Hack_button_Click);
             // 
@@ -441,57 +568,6 @@
             this.HexString_Label.TabIndex = 9;
             this.HexString_Label.Text = "Search String";
             // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.tabPage3.BackgroundImage = global::MegaHack.Properties.Resources.background;
-            this.tabPage3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.tabPage3.Controls.Add(this.Load_Custom_Button);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(956, 644);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Custom Hack";
-            // 
-            // Load_Custom_Button
-            // 
-            this.Load_Custom_Button.Location = new System.Drawing.Point(7, 615);
-            this.Load_Custom_Button.Name = "Load_Custom_Button";
-            this.Load_Custom_Button.Size = new System.Drawing.Size(171, 23);
-            this.Load_Custom_Button.TabIndex = 0;
-            this.Load_Custom_Button.Text = "Load Custom Hacktable";
-            this.Load_Custom_Button.UseVisualStyleBackColor = true;
-            this.Load_Custom_Button.Click += new System.EventHandler(this.Load_Custom_Button_Click);
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage4.BackgroundImage = global::MegaHack.Properties.Resources.background;
-            this.tabPage4.Controls.Add(this.Load_Hacklist_Button);
-            this.tabPage4.Controls.Add(this.Select_APK_OBB);
-            this.tabPage4.Controls.Add(this.AutoHack_Button);
-            this.tabPage4.Controls.Add(this.Hack_Type_Label);
-            this.tabPage4.Controls.Add(this.label_hacktype);
-            this.tabPage4.Controls.Add(this.Author_Label);
-            this.tabPage4.Controls.Add(this.label_Author_text);
-            this.tabPage4.Controls.Add(this.label_Select_Game);
-            this.tabPage4.Controls.Add(this.listBox_AutoHack);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(956, 644);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Auto Hack";
-            // 
-            // Load_Hacklist_Button
-            // 
-            this.Load_Hacklist_Button.Location = new System.Drawing.Point(252, 7);
-            this.Load_Hacklist_Button.Name = "Load_Hacklist_Button";
-            this.Load_Hacklist_Button.Size = new System.Drawing.Size(122, 23);
-            this.Load_Hacklist_Button.TabIndex = 12;
-            this.Load_Hacklist_Button.Text = "Load Hacklist";
-            this.Load_Hacklist_Button.UseVisualStyleBackColor = true;
-            this.Load_Hacklist_Button.Click += new System.EventHandler(this.Load_Hacklist_Button_Click);
-            // 
             // Select_APK_OBB
             // 
             this.Select_APK_OBB.BackColor = System.Drawing.Color.Black;
@@ -504,83 +580,10 @@
             this.Select_APK_OBB.ForeColor = System.Drawing.Color.Yellow;
             this.Select_APK_OBB.Location = new System.Drawing.Point(600, 607);
             this.Select_APK_OBB.Name = "Select_APK_OBB";
-            this.Select_APK_OBB.Size = new System.Drawing.Size(119, 23);
+            this.Select_APK_OBB.Size = new System.Drawing.Size(108, 21);
             this.Select_APK_OBB.TabIndex = 11;
             this.Select_APK_OBB.UseVisualStyleBackColor = false;
             this.Select_APK_OBB.Click += new System.EventHandler(this.Select_APK_OBB_Click);
-            // 
-            // AutoHack_Button
-            // 
-            this.AutoHack_Button.BackgroundImage = global::MegaHack.Properties.Resources.button3;
-            this.AutoHack_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.AutoHack_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AutoHack_Button.Location = new System.Drawing.Point(737, 607);
-            this.AutoHack_Button.Name = "AutoHack_Button";
-            this.AutoHack_Button.Size = new System.Drawing.Size(110, 23);
-            this.AutoHack_Button.TabIndex = 6;
-            this.AutoHack_Button.UseVisualStyleBackColor = true;
-            this.AutoHack_Button.Click += new System.EventHandler(this.AutoHack_Button_Click);
-            // 
-            // Hack_Type_Label
-            // 
-            this.Hack_Type_Label.AutoSize = true;
-            this.Hack_Type_Label.ForeColor = System.Drawing.Color.Yellow;
-            this.Hack_Type_Label.Location = new System.Drawing.Point(514, 34);
-            this.Hack_Type_Label.Name = "Hack_Type_Label";
-            this.Hack_Type_Label.Size = new System.Drawing.Size(0, 17);
-            this.Hack_Type_Label.TabIndex = 5;
-            // 
-            // label_hacktype
-            // 
-            this.label_hacktype.AutoSize = true;
-            this.label_hacktype.ForeColor = System.Drawing.Color.Yellow;
-            this.label_hacktype.Location = new System.Drawing.Point(418, 34);
-            this.label_hacktype.Name = "label_hacktype";
-            this.label_hacktype.Size = new System.Drawing.Size(90, 17);
-            this.label_hacktype.TabIndex = 4;
-            this.label_hacktype.Text = "Type of hack";
-            // 
-            // Author_Label
-            // 
-            this.Author_Label.AutoSize = true;
-            this.Author_Label.ForeColor = System.Drawing.Color.Yellow;
-            this.Author_Label.Location = new System.Drawing.Point(514, 10);
-            this.Author_Label.Name = "Author_Label";
-            this.Author_Label.Size = new System.Drawing.Size(0, 17);
-            this.Author_Label.TabIndex = 3;
-            // 
-            // label_Author_text
-            // 
-            this.label_Author_text.AutoSize = true;
-            this.label_Author_text.ForeColor = System.Drawing.Color.Yellow;
-            this.label_Author_text.Location = new System.Drawing.Point(418, 10);
-            this.label_Author_text.Name = "label_Author_text";
-            this.label_Author_text.Size = new System.Drawing.Size(50, 17);
-            this.label_Author_text.TabIndex = 2;
-            this.label_Author_text.Text = "Author";
-            // 
-            // label_Select_Game
-            // 
-            this.label_Select_Game.AutoSize = true;
-            this.label_Select_Game.ForeColor = System.Drawing.Color.Yellow;
-            this.label_Select_Game.Location = new System.Drawing.Point(7, 10);
-            this.label_Select_Game.Name = "label_Select_Game";
-            this.label_Select_Game.Size = new System.Drawing.Size(89, 17);
-            this.label_Select_Game.TabIndex = 1;
-            this.label_Select_Game.Text = "Select Game";
-            // 
-            // listBox_AutoHack
-            // 
-            this.listBox_AutoHack.BackColor = System.Drawing.Color.Black;
-            this.listBox_AutoHack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBox_AutoHack.ForeColor = System.Drawing.Color.Yellow;
-            this.listBox_AutoHack.FormattingEnabled = true;
-            this.listBox_AutoHack.ItemHeight = 16;
-            this.listBox_AutoHack.Location = new System.Drawing.Point(3, 34);
-            this.listBox_AutoHack.Name = "listBox_AutoHack";
-            this.listBox_AutoHack.Size = new System.Drawing.Size(371, 594);
-            this.listBox_AutoHack.TabIndex = 0;
-            this.listBox_AutoHack.SelectedIndexChanged += new System.EventHandler(this.listBox_AutoHack_SelectedIndexChanged);
             // 
             // MainForm
             // 
@@ -594,13 +597,13 @@
             this.Name = "MainForm";
             this.Text = "MegaHack";
             this.tabControl1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
