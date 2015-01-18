@@ -29,6 +29,7 @@ namespace MegaHack
         IntPtr Offset;
         string[] line;
         List<string[]> ManualHackList = new List<string[]>();
+        List<IntPtr> ManualOffsetHackList = new List<IntPtr>();
         List<string[]> AutoHackList = new List<string[]>();
 
         string[] Hack_List_Stuff;
@@ -110,7 +111,7 @@ private void checklogin()
             }
             if (filename != null && startscan == "Manual")
             {                
-                scanfile();  
+                FetchHex();  
             }
 
         }
@@ -123,25 +124,36 @@ private void checklogin()
             //initialize the MegaHack class to open a file, offset, and size to read
             MegaHack scann = new MegaHack(filename, 0, size);
             //Filter out dynamic parts of the string
-            Offset = scann.FindPattern(StringToByteArray(Hack_List_Stuff[3].Replace(" ", "")), Hack_List_Stuff[4].Replace(" ", ""), Convert.ToInt16(Hack_List_Stuff[7]));
+            int counter = 0;
+            while ((counter < ManualHackList.Count))
+            {
+                Offset = scann.FindPattern(StringToByteArray(ManualHackList[counter].GetValue(3).ToString()), ManualHackList[counter].GetValue(4).ToString(), Convert.ToInt16(ManualHackList[counter].GetValue(6)));
+                
+                ManualOffsetHackList.Add(Offset);
+                counter++;
+            }
             replacehex();
         }
         public void replacehex()
         {
             using (BinaryWriter writer = new BinaryWriter(File.Open(filename, FileMode.Open)))
             {
-                byte[] overwrite = StringToByteArray(line[5]);
-                writer.Seek(Offset.ToInt32(), SeekOrigin.Begin);
-                writer.Write(Hack_List_Stuff[5].Replace(" ", ""));
+                int counter = 0;
+                while ((counter < ManualHackList.Count))
+                {
+                    byte[] overwrite = StringToByteArray(ManualHackList[counter].GetValue(5).ToString());
+                    writer.Seek(Offset.ToInt32(), SeekOrigin.Begin);
+                    writer.Write(Hack_List_Stuff[5].Replace(" ", ""));
+                    counter++;
+                }
             }
         }
         // READ HEXDATA FROM FILE
         public void FetchHex()
         {
             int counter = 0;
-            // Read the file and display it line by line. This will be changed to read the data from database instead
             System.IO.StreamReader file =
-               new System.IO.StreamReader("MegaHackHex.hex");
+               new System.IO.StreamReader(filename);
             //-----------------
             string readline = null;
             do
@@ -156,6 +168,7 @@ private void checklogin()
 
             } while (readline != null);
             file.Close();
+            scanfile();
         }       
 
 
