@@ -27,7 +27,6 @@ namespace MegaHack
         public string manual_mask;
         Int32 size;
         IntPtr Offset;
-        string[] line;
         List<string[]> ManualHackList = new List<string[]>();
         List<IntPtr> ManualOffsetHackList = new List<IntPtr>();
         List<string[]> AutoHackList = new List<string[]>();
@@ -109,10 +108,26 @@ private void checklogin()
                     filename = Select_File.FileName;
                 }
             }
+            if (startscan == "AutoHack")
+            {
+                //Store file opened by user
+                OpenFileDialog Select_File = new OpenFileDialog();
+                Select_File.Filter = "APK files (*.apk)|*.apk|All files (*.*)|*.*";
+                Select_File.FilterIndex = 1;
+                if (Select_File.ShowDialog() == DialogResult.OK)
+                {
+                    filename = Select_File.FileName;
+                }
+            }
             if (filename != null && startscan == "Manual")
             {                
                 FetchHex();  
             }
+            if (filename != null && startscan == "AutoHack")
+            {
+                
+            }
+            
 
         }
 
@@ -120,7 +135,7 @@ private void checklogin()
         {
             FileInfo f = new FileInfo(filename);
             size = Convert.ToInt32(f.Length);
-
+            // TODO ADD IN A FUNCTION FOR THE AUTOHACK LOOKING AT WHAT LISTBOX INDEX ARE CHOOSEN
             //initialize the MegaHack class to open a file, offset, and size to read
             MegaHack scann = new MegaHack(filename, 0, size);
             //Filter out dynamic parts of the string
@@ -277,14 +292,7 @@ private void checklogin()
 
         private void Select_APK_OBB_Click(object sender, EventArgs e)
         {
-            //Store file opened by user
-            OpenFileDialog Select_File = new OpenFileDialog();
-            Select_File.Filter = "APK files (*.apk)|*.apk|OBB files (*.obb)|*.obb";
-            Select_File.FilterIndex = 1;
-            if (Select_File.ShowDialog() == DialogResult.OK)
-            {
-                filename = Select_File.FileName;
-            }
+            Scan("AutoHack");
         }
 
         private void listBox_AutoHack_SelectedIndexChanged(object sender, EventArgs e)

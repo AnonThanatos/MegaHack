@@ -83,13 +83,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\megahack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\button2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\button3.png" />
+    <Content Include="Resources\background.png" />
+    <Content Include="Resources\button2.png" />
+    <Content Include="Resources\button3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

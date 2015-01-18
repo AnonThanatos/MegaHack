@@ -59,7 +59,9 @@
             this.SearchMask_Label = new System.Windows.Forms.Label();
             this.HexString_Label = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.Load_Custom_Button = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.Load_Hacklist_Button = new System.Windows.Forms.Button();
             this.Select_APK_OBB = new System.Windows.Forms.Button();
             this.AutoHack_Button = new System.Windows.Forms.Button();
             this.Hack_Type_Label = new System.Windows.Forms.Label();
@@ -68,8 +70,6 @@
             this.label_Author_text = new System.Windows.Forms.Label();
             this.label_Select_Game = new System.Windows.Forms.Label();
             this.listBox_AutoHack = new System.Windows.Forms.ListBox();
-            this.Load_Custom_Button = new System.Windows.Forms.Button();
-            this.Load_Hacklist_Button = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -162,8 +162,8 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.tabPage2.BackgroundImage = global::MegaHack.Properties.Resources.megahack;
+            this.tabPage2.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage2.BackgroundImage = global::MegaHack.Properties.Resources.background;
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tabPage2.Controls.Add(this.Manual_SearchMask_TextBox);
             this.tabPage2.Controls.Add(this.Manual_Search_TextBox);
@@ -444,6 +444,8 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.tabPage3.BackgroundImage = global::MegaHack.Properties.Resources.background;
+            this.tabPage3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tabPage3.Controls.Add(this.Load_Custom_Button);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
@@ -451,9 +453,20 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Custom Hack";
             // 
+            // Load_Custom_Button
+            // 
+            this.Load_Custom_Button.Location = new System.Drawing.Point(7, 615);
+            this.Load_Custom_Button.Name = "Load_Custom_Button";
+            this.Load_Custom_Button.Size = new System.Drawing.Size(171, 23);
+            this.Load_Custom_Button.TabIndex = 0;
+            this.Load_Custom_Button.Text = "Load Custom Hacktable";
+            this.Load_Custom_Button.UseVisualStyleBackColor = true;
+            this.Load_Custom_Button.Click += new System.EventHandler(this.Load_Custom_Button_Click);
+            // 
             // tabPage4
             // 
-            this.tabPage4.BackColor = System.Drawing.Color.Black;
+            this.tabPage4.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage4.BackgroundImage = global::MegaHack.Properties.Resources.background;
             this.tabPage4.Controls.Add(this.Load_Hacklist_Button);
             this.tabPage4.Controls.Add(this.Select_APK_OBB);
             this.tabPage4.Controls.Add(this.AutoHack_Button);
@@ -468,6 +481,16 @@
             this.tabPage4.Size = new System.Drawing.Size(956, 644);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Auto Hack";
+            // 
+            // Load_Hacklist_Button
+            // 
+            this.Load_Hacklist_Button.Location = new System.Drawing.Point(252, 7);
+            this.Load_Hacklist_Button.Name = "Load_Hacklist_Button";
+            this.Load_Hacklist_Button.Size = new System.Drawing.Size(122, 23);
+            this.Load_Hacklist_Button.TabIndex = 12;
+            this.Load_Hacklist_Button.Text = "Load Hacklist";
+            this.Load_Hacklist_Button.UseVisualStyleBackColor = true;
+            this.Load_Hacklist_Button.Click += new System.EventHandler(this.Load_Hacklist_Button_Click);
             // 
             // Select_APK_OBB
             // 
@@ -559,30 +582,11 @@
             this.listBox_AutoHack.TabIndex = 0;
             this.listBox_AutoHack.SelectedIndexChanged += new System.EventHandler(this.listBox_AutoHack_SelectedIndexChanged);
             // 
-            // Load_Custom_Button
-            // 
-            this.Load_Custom_Button.Location = new System.Drawing.Point(7, 615);
-            this.Load_Custom_Button.Name = "Load_Custom_Button";
-            this.Load_Custom_Button.Size = new System.Drawing.Size(171, 23);
-            this.Load_Custom_Button.TabIndex = 0;
-            this.Load_Custom_Button.Text = "Load Custom Hacktable";
-            this.Load_Custom_Button.UseVisualStyleBackColor = true;
-            this.Load_Custom_Button.Click += new System.EventHandler(this.Load_Custom_Button_Click);
-            // 
-            // Load_Hacklist_Button
-            // 
-            this.Load_Hacklist_Button.Location = new System.Drawing.Point(252, 7);
-            this.Load_Hacklist_Button.Name = "Load_Hacklist_Button";
-            this.Load_Hacklist_Button.Size = new System.Drawing.Size(122, 23);
-            this.Load_Hacklist_Button.TabIndex = 12;
-            this.Load_Hacklist_Button.Text = "Load Hacklist";
-            this.Load_Hacklist_Button.UseVisualStyleBackColor = true;
-            this.Load_Hacklist_Button.Click += new System.EventHandler(this.Load_Hacklist_Button_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(964, 676);
             this.Controls.Add(this.tabControl1);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
