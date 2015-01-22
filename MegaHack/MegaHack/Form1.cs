@@ -30,14 +30,14 @@ namespace MegaHack
         List<string[]> ManualHackList = new List<string[]>();
         List<IntPtr> ManualOffsetHackList = new List<IntPtr>();
         List<string[]> AutoHackList = new List<string[]>();
-
         string[] Hack_List_Stuff;
         public MainForm()
         {
             InitializeComponent();
             manual_selected = "HEX";
-            manual_replaced = "HEX";            
+            manual_replaced = "HEX";
         }
+        //CONVERTING FUNCTIONS
         private static string ConvertToHex(byte[] bytes)
         {
             var builder = new StringBuilder();
@@ -68,40 +68,32 @@ namespace MegaHack
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             return bytes;
         }
-        private void Login_Button_Click(object sender, EventArgs e)
+
+        //LOGIN STUFF TO VALIDATE USER
+        private void Name_Login_Leave(object sender, EventArgs e)
         {
-            if (Login_Name != null && Login_Password != null)
-            {
-                checklogin();       
-            }
+            Login_Name = Name_Login.Text;
         }
-private void checklogin()
+        private void Password_Login_Leave(object sender, EventArgs e)
+        {
+            Login_Password = Password_Login.Text;
+        }
+        private void checklogin()
         {
             //This function is not added yet
             //need to add in a read to database to see if user is subscribed via PHP webpage (I made one already just need to link code to it)
             //need to add checks on the scan functions to validate that user is properly logged in.
 
         }
-        private void Name_Login_Leave(object sender, EventArgs e)
-        {
-            Login_Name = Name_Login.Text;
-        }
 
-        private void Password_Login_Leave(object sender, EventArgs e)
-        {
-            Login_Password = Password_Login.Text;
-        }
-        
-
-//BLABLA SCANNER CODE HERE
-
+        //FUNCTION TO SELECT FILE
         public void Scan(string startscan)
         {
-            if (startscan == "Manual")
+            if (startscan == "ManualHack")
             {
                 //Store file opened by user
                 OpenFileDialog Select_File = new OpenFileDialog();
-                Select_File.Filter = "MegaHack files (*.mh)|*.mh";
+                Select_File.Filter = "Any file (*.*)|*.*";
                 Select_File.FilterIndex = 1;
                 if (Select_File.ShowDialog() == DialogResult.OK)
                 {
@@ -119,31 +111,56 @@ private void checklogin()
                     filename = Select_File.FileName;
                 }
             }
-            if (filename != null && startscan == "Manual")
-            {                
-                FetchHex();  
+            if (startscan == "Manual")
+            {
+                //Store file opened by user
+                OpenFileDialog Select_File = new OpenFileDialog();
+                Select_File.Filter = "MegaHack files (*.mh)|*.mh";
+                Select_File.FilterIndex = 1;
+                if (Select_File.ShowDialog() == DialogResult.OK)
+                {
+                    filename = Select_File.FileName;
+                }
+            }
+            if (filename != null && startscan == "ManualHack")
+            {
+                Manual_Filetohack_textbox.Text = filename;
             }
             if (filename != null && startscan == "AutoHack")
             {
-                
+                scanfile();
             }
-            
-
+            if (filename != null && startscan == "Manual")
+            {
+                FetchHex();
+            }
         }
 
+        //SCANNER STUFF
         public void scanfile()
         {
-            FileInfo f = new FileInfo(filename);
-            size = Convert.ToInt32(f.Length);
-            // TODO ADD IN A FUNCTION FOR THE AUTOHACK LOOKING AT WHAT LISTBOX INDEX ARE CHOOSEN
-            //initialize the MegaHack class to open a file, offset, and size to read
-            MegaHack scann = new MegaHack(filename, 0, size);
-            //Filter out dynamic parts of the string
             int counter = 0;
             while ((counter < ManualHackList.Count))
             {
+                string hackfilename = ManualHackList[counter].GetValue(7).ToString();
+                FileInfo f = new FileInfo(hackfilename);
+                try
+                {
+                    size = Convert.ToInt32(f.Length);
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Make Sure you unpacked the game/program APK into correct folder!\nUnable to locate file " + hackfilename);
+                }
+
+                // TODO ADD IN A FUNCTION FOR THE AUTOHACK LOOKING AT WHAT LISTBOX INDEX ARE CHOOSEN
+                //initialize the MegaHack class to open a file, offset, and size to read
+                MegaHack scann = new MegaHack(hackfilename, 0, size);
+                //Filter out dynamic parts of the string
+
                 Offset = scann.FindPattern(StringToByteArray(ManualHackList[counter].GetValue(3).ToString()), ManualHackList[counter].GetValue(4).ToString(), Convert.ToInt16(ManualHackList[counter].GetValue(6)));
-                
+
                 ManualOffsetHackList.Add(Offset);
                 counter++;
             }
@@ -163,7 +180,8 @@ private void checklogin()
                 }
             }
         }
-        // READ HEXDATA FROM FILE
+
+        //LOAD A CUTOM HACKTABLE
         public void FetchHex()
         {
             int counter = 0;
@@ -177,20 +195,16 @@ private void checklogin()
                 if (readline != null)
                 {
                     ManualHackList.Add(readline.Replace(" ", "").Replace("+", " ").Split('*'));
-                    //     listBox_AutoHack.Items.Add();
+                    Load_Custom_HackTable_List.Items.Add(ManualHackList[counter].GetValue(0));
                     counter++;
                 }
 
             } while (readline != null);
             file.Close();
-            scanfile();
-        }       
+            // scanfile(); NONONO Need to put this on a HackIt Button!!!!
+        }
 
-
-        // END OF SCANNER CODE
-
-        //WEBCLIENT CODE TO CHECK LOGIN AND TO DOWNLOAD HEX DATA
-
+        //CONNECT TO DATABASE VIA PHP WEBSITE TO GET HACKTABLES
         public void connect(string towhat, string startup, string user, string pass, string game, string gethack)
         {
             try
@@ -219,16 +233,16 @@ private void checklogin()
                 {
                     int counter = 0;
                     string line;
-                    
+
                     while ((line = responseString.ReadLine()) != null)
                     {
-                        
+
                         AutoHackList.Add(line.Split('-'));
                         listBox_AutoHack.Items.Add(AutoHackList[counter].GetValue(0));
                         counter++;
                     }
                 }
-                }
+            }
 
 
 
@@ -237,29 +251,14 @@ private void checklogin()
                 MessageBox.Show("Error:\n" + e);
             }
 
-        finally
-        {
-            
-        }
-        
-    }
+            finally
+            {
 
-
-            
-        
-
-        private void Replace_Hex_Click(object sender, EventArgs e)
-        {
-            manual_replaced = "HEX";
-            Replace_Text_Option.Checked = false;
             }
 
-        private void Replace_Text_Click(object sender, EventArgs e)
-        {
-            manual_replaced = "TEXT";
-            Replace_Hex_Option.Checked = false;
         }
 
+        //TEXTBOXES IN HERE
         private void Manual_SearchMask_TextBox_Leave(object sender, EventArgs e)
         {
             if (manual_selected == "HEX")
@@ -283,53 +282,10 @@ private void checklogin()
             System.Windows.Forms.ToolTip ToolTip1 = new System.Windows.Forms.ToolTip();
             ToolTip1.SetToolTip(this.Manual_Search_TextBox, "Make hexstring formatted like this 010203040506");
         }
-
         private void Manual_SearchMask_TextBox_MouseHover(object sender, EventArgs e)
         {
             System.Windows.Forms.ToolTip ToolTip1 = new System.Windows.Forms.ToolTip();
             ToolTip1.SetToolTip(this.Manual_SearchMask_TextBox, "Make mask formatted like this xx??xx?   x= static value ?= dynamic value");
-        }
-
-        private void Select_APK_OBB_Click(object sender, EventArgs e)
-        {
-            Scan("AutoHack");
-        }
-
-        private void listBox_AutoHack_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int curItem = listBox_AutoHack.SelectedIndex;
-            Author_Label.Text = AutoHackList[curItem].GetValue(1).ToString();
-            Hack_Type_Label.Text = AutoHackList[curItem].GetValue(2).ToString();
-        }
-
-        private void AutoHack_Button_Click(object sender, EventArgs e)
-        {
-            //scanfile();
-        }
-
-        private void search_hex_option_CheckedChanged(object sender, EventArgs e)
-        {
-            manual_selected = "HEX";
-            search_text_option.Checked = false;
-        }
-
-        private void search_text_option_CheckedChanged(object sender, EventArgs e)
-        {
-            manual_selected = "TEXT";
-            search_hex_option.Checked = false;
-        }
-
-        private void Manual_Hack_button_Click(object sender, EventArgs e)
-        {
-            if (manual_selected == "HEX" && manual_replaced == "HEX" && Manual_Search_TextBox.Text != "" && Manual_SearchMask_TextBox.Text != "" && Replace_String_Textbox.Text != "" && Move_Bytes_Textbox.Text != "")
-            {
-//                AuthorList.Add("0" + "*" + "0" + "*" + "0" + "*" + Manual_Search_TextBox.Text + "*" + Manual_SearchMask_TextBox.Text + "*" + Replace_String_Textbox.Text + "*" + Move_Bytes_Textbox.Text);
-            }
-            if (manual_selected == "TEXT" && manual_replaced == "TEXT" && Manual_Search_TextBox.Text != "" && Manual_SearchMask_TextBox.Text != "" && Replace_String_Textbox.Text != "" && Move_Bytes_Textbox.Text != "")
-            {
- //               AuthorList.Add("0" + "*" + "0" + "*" + "0" + "*" + ConvertToHex(Encoding.ASCII.GetBytes(Manual_Search_TextBox.Text)) + "*" + Manual_SearchMask_TextBox.Text + "*" + ConvertToHex(Encoding.ASCII.GetBytes(Replace_String_Textbox.Text)) + "*" + Move_Bytes_Textbox.Text);
-            }
-
         }
         private void Manual_SearchMask_TextBox_TextChanged(object sender, EventArgs e)
         {
@@ -343,7 +299,7 @@ private void checklogin()
             }
             if (Manual_SearchMask_TextBox.Text.EndsWith("x") || Manual_SearchMask_TextBox.Text.EndsWith("?"))
             {
-                
+
             }
             else
             {
@@ -358,22 +314,95 @@ private void checklogin()
                     MessageBox.Show("Error wrong character used: \nValid letters used in searchmask are \nx for static byte/char\n? for dynamic byte/char ");
                 }
             }
-            
+
         }
 
+        //LISTBOXES IN HERE
+        private void listBox_AutoHack_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int curItem = listBox_AutoHack.SelectedIndex;
+            AutoHackHackTextBox1.Text =
+            AutoHackList[curItem].GetValue(0).ToString() + Environment.NewLine +
+            AutoHackList[curItem].GetValue(1).ToString() + Environment.NewLine +
+            AutoHackList[curItem].GetValue(2).ToString() + Environment.NewLine;
+        }
+        private void Load_Custom_HackTable_List_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int curItem = Load_Custom_HackTable_List.SelectedIndex;
+            CustomhackTextBox1.Text =
+                ManualHackList[curItem].GetValue(0).ToString() + Environment.NewLine +
+                ManualHackList[curItem].GetValue(1).ToString() + Environment.NewLine +
+                ManualHackList[curItem].GetValue(2).ToString() + Environment.NewLine;
+
+        }
+
+        //OPTION BOXES IN HERE
+        private void Replace_Hex_Click(object sender, EventArgs e)
+        {
+            manual_replaced = "HEX";
+            Replace_Text_Option.Checked = false;
+        }
+        private void Replace_Text_Click(object sender, EventArgs e)
+        {
+            manual_replaced = "TEXT";
+            Replace_Hex_Option.Checked = false;
+        }
+        private void search_hex_option_CheckedChanged(object sender, EventArgs e)
+        {
+            manual_selected = "HEX";
+            search_text_option.Checked = false;
+        }
+        private void search_text_option_CheckedChanged(object sender, EventArgs e)
+        {
+            manual_selected = "TEXT";
+            search_hex_option.Checked = false;
+        }
+
+        // BUTTONS IN HERE
+        private void Manual_Hack_button_Click(object sender, EventArgs e)
+        {
+            if (manual_selected == "HEX" && manual_replaced == "HEX" && Manual_Search_TextBox.Text != "" && Manual_SearchMask_TextBox.Text != "" && Replace_String_Textbox.Text != "" && Move_Bytes_Textbox.Text != "")
+            {
+                //                AuthorList.Add("0" + "*" + "0" + "*" + "0" + "*" + Manual_Search_TextBox.Text + "*" + Manual_SearchMask_TextBox.Text + "*" + Replace_String_Textbox.Text + "*" + Move_Bytes_Textbox.Text);
+            }
+            if (manual_selected == "TEXT" && manual_replaced == "TEXT" && Manual_Search_TextBox.Text != "" && Manual_SearchMask_TextBox.Text != "" && Replace_String_Textbox.Text != "" && Move_Bytes_Textbox.Text != "")
+            {
+                //               AuthorList.Add("0" + "*" + "0" + "*" + "0" + "*" + ConvertToHex(Encoding.ASCII.GetBytes(Manual_Search_TextBox.Text)) + "*" + Manual_SearchMask_TextBox.Text + "*" + ConvertToHex(Encoding.ASCII.GetBytes(Replace_String_Textbox.Text)) + "*" + Move_Bytes_Textbox.Text);
+            }
+
+        }
         private void button_generate_custom_Click(object sender, EventArgs e)
         {
-            System.IO.File.WriteAllText(@"Custom\"+manual_textbox_gamename.Text.Replace(" ", "")+"_" + Login_Name + ".mh", manual_textbox_gamename.Text.Replace(" ", "+") + "*" + manual_textbox_author.Text.Replace(" ", "+") + "*" + manual_textbox_hacktype.Text.Replace(" ", "+") + "*" + Manual_Search_TextBox.Text + "*" + Manual_SearchMask_TextBox.Text + "*" + Replace_String_Textbox.Text + "*" + Move_Bytes_Textbox.Text);
+            System.IO.File.WriteAllText(@"Custom\" + manual_textbox_gamename.Text.Replace(" ", "") + "_" + Login_Name + ".mh", manual_textbox_gamename.Text.Replace(" ", "+") + "*" + manual_textbox_author.Text.Replace(" ", "+") + "*" + manual_textbox_hacktype.Text.Replace(" ", "+") + "*" + Manual_Search_TextBox.Text + "*" + Manual_SearchMask_TextBox.Text + "*" + Replace_String_Textbox.Text + "*" + Move_Bytes_Textbox.Text + "*" + Manual_Filetohack_textbox.Text);
         }
-
         private void Load_Custom_Button_Click(object sender, EventArgs e)
         {
             Scan("Manual");
         }
-
+        private void Select_APK_OBB_Click(object sender, EventArgs e)
+        {
+            Scan("ManualHack");
+        }
+        private void AutoHack_Button_Click(object sender, EventArgs e)
+        {
+            //scanfile();
+        }
         private void Load_Hacklist_Button_Click(object sender, EventArgs e)
         {
             connect("http://www.anonthanatos.com/MegaHack/index.php", "true", Login_Name, Login_Password, "All", "false");
         }
-      }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Add function to scan all files in folder to see if hacks are compatable and get up proper hacklist
+        }
+        private void Login_Button_Click(object sender, EventArgs e)
+        {
+            if (Login_Name != null && Login_Password != null)
+            {
+                checklogin();
+            }
+            else MessageBox.Show("You need to put in a valid Name and Password to login and validate!");
+        }
+
+    }
     }
